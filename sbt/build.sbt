@@ -28,13 +28,18 @@ resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/reposi
 libraryDependencies <<= scalaVersion { scala_version => 
 	val sprayVersion = "1.1-M4"
 	val akkaVersion  = "2.1.0-RC1"
+	val specs2Version = "1.12.3"
 	Seq(
 		"com.typesafe.akka" % "akka-kernel_2.10.0-RC1"  % akkaVersion,
+		"com.typesafe.akka" % "akka-testkit_2.10.0-RC1" % akkaVersion,
 		"io.spray" % "spray-can" % sprayVersion,
 		"io.spray" % "spray-routing" % sprayVersion,
 		"io.spray" % "spray-httpx" % sprayVersion,
 		"io.spray" % "spray-util" % sprayVersion,
-		"io.spray" % "spray-json" % "1.2.2" cross CrossVersion.full
+		"io.spray" % "spray-json" % "1.2.2" cross CrossVersion.full,
+		"org.specs2" % "specs2_2.10.0-RC3" % specs2Version,
+		"org.scalaz" % "scalaz-core_2.10.0-RC3" % "7.0.0-M5",
+		"com.github.tmingos" % "casbah_2.10" % "2.5.0-SNAPSHOT"
 	)
 }
 
