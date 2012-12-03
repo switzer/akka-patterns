@@ -3,6 +3,7 @@ package org.cakesolutions.akkapatterns.core.application
 import org.cakesolutions.akkapatterns.core.{Started, Stop, Start}
 import akka.actor.{Props, Actor}
 import org.cakesolutions.akkapatterns.domain.Configured
+import com.mongodb.casbah.MongoDB
 
 case class GetImplementation()
 case class Implementation(title: String, version: String, build: String)
@@ -15,9 +16,9 @@ class ApplicationActor extends Actor {
     case GetImplementation() =>
       val manifestStream = getClass.getResourceAsStream("/META-INF/MANIFEST.MF")
       val manifest = new java.util.jar.Manifest(manifestStream)
-      val title = "Akka-Patterns" // manifest.getMainAttributes.getValue("Implementation-Title")
-      val version = "1.0" // manifest.getMainAttributes.getValue("Implementation-Version")
-      val build = "1.0" //manifest.getMainAttributes.getValue("Implementation-Build")
+      val title = manifest.getMainAttributes.getValue("Implementation-Title")
+      val version = manifest.getMainAttributes.getValue("Implementation-Version")
+      val build = manifest.getMainAttributes.getValue("Implementation-Build")
       manifestStream.close()
 
       sender ! Implementation(title, version, build)
@@ -41,7 +42,7 @@ class ApplicationActor extends Actor {
 }
 
 trait MongoCollections extends Configured {
-//  def customers = configured[MongoDB].apply("customers")
-//  def users = configured[MongoDB].apply("users")
+  def customers = configured[MongoDB].apply("customers")
+  def users = configured[MongoDB].apply("users")
 
 }
